@@ -1,0 +1,44 @@
+## .NET / Visual Studio (based on `dotnet new gitignore`, trimmed)
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rtifacts/
+publish/
+*.nupkg
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.DotSettings.user
+
+# Test results / coverage
+[Tt]est[Rr]esult*/
+*.trx
+coverage*.json
+coverage*.xml
+*.coverage
+
+# Logs
+*.log
+
+# Local settings that must never be committed
+appsettings.*.local.json
+*.pubxml.user
+
+# OS
+.DS_Store
+Thumbs.db
