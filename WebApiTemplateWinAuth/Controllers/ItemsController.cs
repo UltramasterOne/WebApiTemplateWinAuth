@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApiTemplateWinAuth.Models;
 using WebApiTemplateWinAuth.Repositories.App;
 
 namespace WebApiTemplateWinAuth.Controllers
@@ -8,9 +9,9 @@ namespace WebApiTemplateWinAuth.Controllers
     public class ItemsController(ItemRepository items) : ControllerBase
     {
         [HttpGet("Index")]
-        public async Task<IActionResult> IndexAsync(CancellationToken ct)
+        public async Task<ActionResult<List<Item>>> IndexAsync(CancellationToken ct)
         {
-            return Ok(await items.GetAllAsync(ct));
+            return await items.GetAllAsync(ct);
         }
     }
 }
