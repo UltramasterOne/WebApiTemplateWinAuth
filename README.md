@@ -32,7 +32,7 @@ Optional — keep passwords out of git instead: leave the value empty and use
 `dotnet user-secrets set "ConnectionStrings:App" "..."` (dev) or an environment variable
 `ConnectionStrings__App` (production). Both override appsettings.
 
-Scalar UI (Development only): `https://localhost:7257/scalar` · Health: `/health` (app is running, no database check) — both anonymous
+Scalar UI (Development only): `https://localhost:7257/scalar` (anonymous)
 
 Platform: Windows x64 only (`win-x64`, framework-dependent).
 
