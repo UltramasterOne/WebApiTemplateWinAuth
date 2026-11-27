@@ -13,7 +13,8 @@ namespace WebApiTemplateWinAuth.Extensions
             services.AddCors(o => o.AddPolicy(FrontendPolicy, p => p
                 .WithOrigins(settings.Origins)
                 .AllowAnyHeader()
-                .AllowAnyMethod()));
+                .AllowAnyMethod()
+                .AllowCredentials()));   // required for Windows auth from another origin (fetch credentials: 'include')
 
             return services;
         }

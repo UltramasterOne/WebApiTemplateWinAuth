@@ -3,6 +3,9 @@ using WebApiTemplateWinAuth.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Windows auth doesn't work over HTTP/2 -> Kestrel serves HTTP/1.1 (ignored under IIS)
+builder.WebHost.UseHttp1ForWindowsAuth();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -19,6 +22,9 @@ builder.Services.AddCompression();
 // Add Cors
 builder.Services.AddFrontendCors(builder.Configuration);
 
+// Windows Authentication; every endpoint requires a signed-in user unless marked anonymous
+builder.Services.AddWindowsAuth();
+
 // Add Sql settings, connection factory, repositories and health checks.
 builder.Services.AddSqlData();
 
@@ -33,9 +39,9 @@ app.UseStatusCodePages();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi().AllowAnonymous();
 
-    app.MapScalarApiReference();
+    app.MapScalarApiReference().AllowAnonymous();
 
     app.Lifetime.ApplicationStarted.Register(() =>
     {
@@ -50,12 +56,15 @@ app.UseHttpsRedirection();
 
 app.UseResponseCompression();
 
+// CORS must run before authentication, so preflight requests and 401 responses get CORS headers
 app.UseFrontendCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/health").AllowAnonymous();
 
 app.Run();
