@@ -1,29 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net10.0-windows8.0</TargetFramework>
+    <!-- -windows: the app uses Windows-only APIs (Active Directory lookup) -->
+    <TargetFramework>net10.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Windows x64 only (no ARM, no Linux) -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64</Platforms>
-  </PropertyGroup>
+    <SelfContained>false</SelfContained>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>full</DebugType>
+    <!-- Optional: only needed if you keep connection strings in user secrets instead of appsettings.
+         Replace with a new GUID per project created from this template (dotnet user-secrets init). -->
+    <UserSecretsId>webapitemplatewinauth-2e9b6f41-8c3d-4a7e-b5f0-6d1a9c4e7b23</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="10.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.2" />
     <PackageReference Include="Scalar.AspNetCore" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="10.0.15" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,16 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
 using WebApiTemplateWinAuth.Data;
 using WebApiTemplateWinAuth.Models;
-using WebApiTemplateWinAuth.Options;
 
 namespace WebApiTemplateWinAuth.Repositories.App
 {
-    public sealed class ItemRepository(ISqlConnectionFactory db, IOptions<DatabaseOptions> options)
+    public sealed class ItemRepository(ISqlConnectionFactory db)
     {
-        private readonly int _commandTimeout = options.Value.CommandTimeoutSeconds;
-
         public async Task<List<Item>> GetAllAsync(CancellationToken ct)
         {
-            await using var command = new SqlCommand(QUERY_INDEX) { CommandTimeout = _commandTimeout };
+            // Default CommandTimeout is 30 s. For a slow query set it here, e.g.:
+            // new SqlCommand(QUERY_INDEX) { CommandTimeout = 120 }
+            await using var command = new SqlCommand(QUERY_INDEX);
 
             return await command.GetDataAsync<Item>(db, SqlServer.App, cancellationToken: ct);
         }

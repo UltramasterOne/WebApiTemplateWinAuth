@@ -8,13 +8,13 @@ namespace WebApiTemplateWinAuth.Data
     {
         private readonly DatabaseOptions _options = options.Value;
 
-        public async Task<SqlConnection> OpenAsync(SqlServer database, CancellationToken cancellationToken = default)
+        public async Task<SqlConnection> OpenAsync(SqlServer server, CancellationToken cancellationToken = default)
         {
-            var connectionString = database switch
+            var connectionString = server switch
             {
-                // SqlDatabase.Erp => _options.ErpConnectionString,
+                // SqlServer.Erp => _options.ErpConnectionString,
                 SqlServer.App => _options.AppConnectionString,
-                _ => throw new ArgumentOutOfRangeException(nameof(database), database, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(server), server, null)
             };
 
             var connection = new SqlConnection(connectionString);
