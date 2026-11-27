@@ -23,11 +23,6 @@ namespace WebApiTemplateWinAuth.Extensions
             // Repositories
             services.AddScoped<ItemRepository>();
 
-            // Health checks (GET /health)
-            services.AddHealthChecks()
-                // .AddTypeActivatedCheck<SqlServerHealthCheck>("sql-erp", SqlServer.Erp)
-                .AddTypeActivatedCheck<SqlServerHealthCheck>("sql-app", SqlServer.App);
-
             return services;
         }
     }

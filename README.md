@@ -9,7 +9,7 @@ Starting point for .NET 10 ASP.NET Core Web API projects **with Windows Authenti
 | Folder | Purpose |
 |---|---|
 | `Controllers` | `[ApiController]` classes, `[Route("[controller]")]`, explicit action routes |
-| `Data` | `ISqlConnectionFactory`, `DataReaderMapper` (SqlCommand → POCO), SQL health check |
+| `Data` | `ISqlConnectionFactory`, `DataReaderMapper` (SqlCommand → POCO) |
 | `Extensions` | `IServiceCollection` / `IApplicationBuilder` setup used by `Program.cs` |
 | `Models` | DTOs / entities (`[Column]` maps a property to a differently named column) |
 | `Options` | Options-pattern classes bound from configuration |
@@ -32,7 +32,7 @@ Optional — keep passwords out of git instead: leave the value empty and use
 `dotnet user-secrets set "ConnectionStrings:App" "..."` (dev) or an environment variable
 `ConnectionStrings__App` (production). Both override appsettings.
 
-Scalar UI (Development only): `https://localhost:7257/scalar` · Health: `/health` (both anonymous)
+Scalar UI (Development only): `https://localhost:7257/scalar` · Health: `/health` (app is running, no database check) — both anonymous
 
 Platform: Windows x64 only (`win-x64`, framework-dependent).
 
@@ -79,7 +79,7 @@ must be able to read users in AD — which domain computers can by default.
 1. Rename the solution, project folder, `.csproj` and the `WebApiTemplateWinAuth` root namespace.
 2. Fill in the `TODO` connection strings. If you use user secrets, run `dotnet user-secrets init` (or put a new GUID in `<UserSecretsId>`) so projects don't share secrets.
 3. Add a server: uncomment `Erp` in `SqlServer`, `DatabaseOptions`, `SqlConnectionFactory`
-   and `AddSqlData` (connection string + health check), then fill `ConnectionStrings:Erp` in both appsettings files.
+   and `AddSqlData` (connection string), then fill `ConnectionStrings:Erp` in both appsettings files.
 4. Set `Cors:Origins` for every environment where the frontend runs on a different origin.
 
 ## Settings

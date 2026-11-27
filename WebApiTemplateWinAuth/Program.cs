@@ -25,8 +25,11 @@ builder.Services.AddFrontendCors(builder.Configuration);
 // Windows Authentication; every endpoint requires a signed-in user unless marked anonymous
 builder.Services.AddWindowsAuth();
 
-// Add Sql settings, connection factory, repositories and health checks.
+// Add Sql settings, connection factory and repositories.
 builder.Services.AddSqlData();
+
+// GET /health: returns 200 "Healthy" while the app is running (no database check)
+builder.Services.AddHealthChecks();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
